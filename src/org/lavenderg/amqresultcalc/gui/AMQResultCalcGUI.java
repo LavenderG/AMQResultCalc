@@ -34,6 +34,9 @@ import java.io.IOException;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 /**
  * Clase que forma la interfaz gráfica de la aplicación.
@@ -134,6 +137,7 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenu getMenuFile() {
 		if (menuFile == null) {
 			menuFile = new JMenu("Archivo");
+			menuFile.setMnemonic('A');
 			menuFile.add(getMntmCargarRondas());
 			menuFile.add(getMntmCargarResultados());
 			menuFile.add(getSeparator());
@@ -144,6 +148,8 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenuItem getMntmCargarRondas() {
 		if (mntmCargarRondas == null) {
 			mntmCargarRondas = new JMenuItem("Cargar rondas...");
+			mntmCargarRondas.setMnemonic('r');
+			mntmCargarRondas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
 			mntmCargarRondas.addActionListener(new MntmCargarRondasActionListener());
 		}
 		return mntmCargarRondas;
@@ -151,6 +157,8 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenuItem getMntmCargarResultados() {
 		if (mntmCargarResultados == null) {
 			mntmCargarResultados = new JMenuItem("Cargar resultados previos...");
+			mntmCargarResultados.setMnemonic('p');
+			mntmCargarResultados.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
 			mntmCargarResultados.addActionListener(new MntmCargarResultadosActionListener());
 		}
 		return mntmCargarResultados;
@@ -164,6 +172,8 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenuItem getMntmSalir() {
 		if (mntmSalir == null) {
 			mntmSalir = new JMenuItem("Salir");
+			mntmSalir.setMnemonic('S');
+			mntmSalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
 			mntmSalir.addActionListener(new MntmSalirActionListener());
 		}
 		return mntmSalir;
@@ -171,6 +181,7 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenu getMnCalcular() {
 		if (mnCalcular == null) {
 			mnCalcular = new JMenu("Calcular");
+			mnCalcular.setMnemonic('C');
 			mnCalcular.add(getMntmGenerarResultados());
 		}
 		return mnCalcular;
@@ -178,6 +189,8 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenuItem getMntmGenerarResultados() {
 		if (mntmGenerarResultados == null) {
 			mntmGenerarResultados = new JMenuItem("Generar resultados");
+			mntmGenerarResultados.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_MASK));
+			mntmGenerarResultados.setMnemonic('G');
 			mntmGenerarResultados.addActionListener(new MntmGenerarResultadosActionListener());
 		}
 		return mntmGenerarResultados;
@@ -318,6 +331,7 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenu getMnAyuda() {
 		if (mnAyuda == null) {
 			mnAyuda = new JMenu("Ayuda");
+			mnAyuda.setMnemonic('y');
 			mnAyuda.add(getMntmSobreAmqresultcalc());
 		}
 		return mnAyuda;
@@ -325,6 +339,8 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenuItem getMntmSobreAmqresultcalc() {
 		if (mntmSobreAmqresultcalc == null) {
 			mntmSobreAmqresultcalc = new JMenuItem("Sobre AMQResultCalc");
+			mntmSobreAmqresultcalc.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0));
+			mntmSobreAmqresultcalc.setMnemonic('S');
 			mntmSobreAmqresultcalc.addActionListener(new MntmSobreAmqresultcalcActionListener());
 		}
 		return mntmSobreAmqresultcalc;
