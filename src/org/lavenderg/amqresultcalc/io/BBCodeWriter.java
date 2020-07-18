@@ -37,6 +37,10 @@ public class BBCodeWriter {
 	private static final String END_TABLE_DATA  = "[/td]";
 	private static final String TABLE_HEADER_PLAYER = "Jugador";
 	private static final String TABLE_HEADER_POINTS = "Puntuación";
+	private static final String SPOILER_BEGIN_TAG = "[spoiler=Capturas]";
+	private static final String SPOILER_END_TAG = "[/spoiler]";
+	private static final String IMG_TAG_FORMATTED = "[img style=\"%s\" src=\"%s\" alt=\" \"]";
+	private static final String IMG_ATTRIB_WIDTH = "max-width:100%;";
 	
 	/**
 	 * Escribe BBCode asociado con las rondas y resultados al archivo dado.
@@ -83,9 +87,18 @@ public class BBCodeWriter {
 		writer.newLine();
 		writer.newLine();
 		
-		// TODO: generar capturas de forma automática
-		writer.write("<CAPTURAS>");
+		// Capturas
+		writer.write(SPOILER_BEGIN_TAG);
 		writer.newLine();
+		for (Round round : rounds) {
+			writer.write(round.roundName());
+			writer.newLine();
+			writer.write(String.format(IMG_TAG_FORMATTED, IMG_ATTRIB_WIDTH, round.roundURL()));
+			writer.newLine();
+			writer.newLine();
+		}
+		writer.write(SPOILER_END_TAG);
+		
 		writer.newLine();
 		writer.newLine();
 		writer.write(TEXT_FOLLOWING_POINTS);

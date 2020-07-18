@@ -19,15 +19,17 @@ public class BattleRoyaleRound implements Round {
 	
 	private final List<BattleRoyaleRoundOutcome> roundOutcomes;
 	private final String roundName;
+	private final String urlName;
 	
 	/**
 	 * Crea una ronda de battle royale con un nombre y una lista de resultados.
 	 * @param roundName El nombre de la ronda, como {@link String}.
 	 * @param roundOutcomes Una {@link List} de {@link BattleRoyaleRoundOutcome}.
 	 */
-	public BattleRoyaleRound(String roundName, List<BattleRoyaleRoundOutcome> roundOutcomes) {
+	public BattleRoyaleRound(String roundName, String urlName, List<BattleRoyaleRoundOutcome> roundOutcomes) {
 		this.roundOutcomes = roundOutcomes;
 		this.roundName = roundName;
+		this.urlName = urlName;
 	}
 	
 	private static Integer getPointsFromPosition(Integer position) {
@@ -88,6 +90,11 @@ public class BattleRoyaleRound implements Round {
 	@Override
 	public String roundName() {
 		return roundName;
+	}
+
+	@Override
+	public String roundURL() {
+		return urlName;
 	}
 
 }

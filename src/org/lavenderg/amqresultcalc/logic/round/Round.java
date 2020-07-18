@@ -17,6 +17,12 @@ public interface Round {
 	String roundName();
 	
 	/**
+	 * Devuelve la URL de la captura de la ronda.
+	 * @return {@link String}, URL de la captura de la ronda.
+	 */
+	String roundURL();
+	
+	/**
 	 * Calcula y devuelve los resultados de la ronda.
 	 * @return Los resultados {@link Result} de la ronda, en una {@link List}.
 	 */

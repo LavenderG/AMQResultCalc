@@ -19,15 +19,17 @@ public class StandardRound implements Round {
 	
 	private final List<StandardRoundOutcome> roundOutcomes;
 	private final String roundName;
+	private final String urlName;
 	
 	/**
 	 * Crea una ronda estándar con un nombre y una lista de resultados.
 	 * @param roundName El nombre de la ronda, como {@link String}.
 	 * @param roundOutcomes Una {@link List} de {@link StandardRoundOutcome}.
 	 */
-	public StandardRound(String roundName, List<StandardRoundOutcome> roundOutcomes) {
+	public StandardRound(String roundName, String urlName, List<StandardRoundOutcome> roundOutcomes) {
 		this.roundOutcomes = roundOutcomes;
 		this.roundName = roundName;
+		this.urlName = urlName;
 	}
 	
 	private static Integer getPointsFromPosition(Integer position) {
@@ -53,6 +55,11 @@ public class StandardRound implements Round {
 	@Override
 	public String roundName() {
 		return roundName;
+	}
+
+	@Override
+	public String roundURL() {
+		return urlName;
 	}
 
 }
