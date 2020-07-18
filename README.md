@@ -39,9 +39,9 @@ Este archivo contendrá la información de la ronda o rondas jugadas. La extensi
 
 La definición de una ronda estándar comienza así:
 
-    BEGINSTDROUND;Nombre de la ronda
+    BEGINSTDROUND;Nombre de la ronda;URL de la captura de la ronda
 
-donde *BEGINSTDROUND* es la etiqueta de comienzo de ronda estándar que debe escribirse tal cual y *Nombre de la ronda* será sustituido por el nombre que le quieres dar a la ronda (pueden utilizarse espacios).
+donde *BEGINSTDROUND* es la etiqueta de comienzo de ronda estándar que debe escribirse tal cual, *Nombre de la ronda* será sustituido por el nombre que le quieres dar a la ronda (pueden utilizarse espacios) y *URL de la captura de la ronda* será la URL del pantallazo de la ronda.
 
 
 Tras esto, se definirán los resultados de los usuarios, que tendrán el siguiente formato:
@@ -61,9 +61,9 @@ donde *ENDSTDROUND* es la etiqueta de final de ronda estándar que debe escribir
 
 La definición de una ronda estándar comienza así:
 
-    BEGINBATTLEROYALE;Nombre de la ronda
+    BEGINBATTLEROYALE;Nombre de la ronda;URL de la captura de la ronda
 
-donde *BEGINBATTLEROYALE* es la etiqueta de comienzo de ronda de battle royale que debe escribirse tal cual y *Nombre de la ronda* será sustituido por el nombre que le quieres dar a la ronda (pueden utilizarse espacios).
+donde *BEGINBATTLEROYALE* es la etiqueta de comienzo de ronda de battle royale que debe escribirse tal cual,*Nombre de la ronda* será sustituido por el nombre que le quieres dar a la ronda (pueden utilizarse espacios) y y *URL de la captura de la ronda* será la URL del pantallazo de la ronda.
 
 
 Tras esto, se definirán los resultados de los usuarios, que tendrán el siguiente formato:
@@ -89,10 +89,11 @@ donde *Nombre del jugador* será el nombre del jugador y *Puntuación total ser�
 ## Ejemplos <a name="formato_ejemplos"></a>
 
 A continuación se mostrarán ejemplos de formato de los archivos de la aplicación.
+**Nota**: las capturas de los ejemplos no tienen por qué corresponderse con los resultados de las rondas.
 
 ### Rondas estándar <a name="formato_ejemplos_std"></a>
 
-    BEGINSTDROUND;Ronda 1
+    BEGINSTDROUND;Ronda 1;https://i.imgur.com/2RpQXMo.png
     Vainilla;1;7
     Keme;2;6
     Jerao91;2;6
@@ -102,7 +103,7 @@ A continuación se mostrarán ejemplos de formato de los archivos de la aplicaci
     Razeus;7;1
     vader;8;0
     ENDSTDROUND
-    BEGINSTDROUND;Ronda 2
+    BEGINSTDROUND;Ronda 2;https://i.imgur.com/emJuk5L.png
     Vainilla;1;10
     Keme;2;8
     Hatsujaya;3;7
@@ -112,7 +113,7 @@ A continuación se mostrarán ejemplos de formato de los archivos de la aplicaci
     vader;5;2
     LavenderG;5;2
     ENDSTDROUND
-    BEGINSTDROUND;Ronda 3
+    BEGINSTDROUND;Ronda 3;https://i.imgur.com/ELnrufh.png
     Keme;1;8
     Jerao91;2;7
     Hatsujaya;3;6
@@ -125,7 +126,7 @@ A continuación se mostrarán ejemplos de formato de los archivos de la aplicaci
 
 ### Rondas estándar + battle royale <a name="formato_ejemplos_std_royale"></a>
 
-    BEGINSTDROUND;Ronda 1
+    BEGINSTDROUND;Ronda 1;https://i.imgur.com/BCeGwMl.png
     Hatsujaya;1;8
     Keme;2;7
     Jerao91;2;7
@@ -135,7 +136,7 @@ A continuación se mostrarán ejemplos de formato de los archivos de la aplicaci
     LavenderG;5;3
     Razeus;8;2
     ENDSTDROUND
-    BEGINSTDROUND;Ronda 2
+    BEGINSTDROUND;Ronda 2;https://i.imgur.com/pTCJunW.png
     Hatsujaya;1;8
     santygrass;2;6
     Keme;2;6
@@ -146,7 +147,7 @@ A continuación se mostrarán ejemplos de formato de los archivos de la aplicaci
     Razeus;7;2
     vader;7;2
     ENDSTDROUND
-    BEGINSTDROUND;Ronda 3
+    BEGINSTDROUND;Ronda 3;https://i.imgur.com/y9NApYv.png
     Keme;1;7
     Hatsujaya;1;7
     Jerao91;4;5
@@ -156,7 +157,7 @@ A continuación se mostrarán ejemplos de formato de los archivos de la aplicaci
     vader;7;1
     Pacochef;9;0
     ENDSTDROUND
-    BEGINSTDROUND;Ronda 4
+    BEGINSTDROUND;Ronda 4;https://i.imgur.com/vc6pqtF.png
     Hatsujaya;1;8
     santygrass;2;6
     Jerao91;3;5
@@ -165,7 +166,7 @@ A continuación se mostrarán ejemplos de formato de los archivos de la aplicaci
     Razeus;6;1
     vader;6;1
     ENDSTDROUND
-    BEGINBATTLEROYALE;Battle Royale 1
+    BEGINBATTLEROYALE;Battle Royale 1;https://i.imgur.com/Ai1P2Br.png
     santygrass;1;14;4;0
     Jerao91;2;12;2;0
     Hatsujaya;3;11;1;0
