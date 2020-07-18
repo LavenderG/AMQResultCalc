@@ -70,6 +70,8 @@ public class AMQResultCalcGUI extends JFrame {
 	private JTextPane textPaneRounds;
 	private JScrollPane scrollPaneResults;
 	private JTextPane textPaneResult;
+	private JMenu mnAyuda;
+	private JMenuItem mntmSobreAmqresultcalc;
 
 	
 	public static void main(String[] args) {
@@ -125,6 +127,7 @@ public class AMQResultCalcGUI extends JFrame {
 			menuBar = new JMenuBar();
 			menuBar.add(getMenuFile());
 			menuBar.add(getMnCalcular());
+			menuBar.add(getMnAyuda());
 		}
 		return menuBar;
 	}
@@ -262,6 +265,11 @@ public class AMQResultCalcGUI extends JFrame {
 			}
 		}
 	}
+	private class MntmSobreAmqresultcalcActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			JOptionPane.showMessageDialog(AMQResultCalcGUI.this, "Calculadora simple para resultados de AMQ.\nLicencia GPL-3.0.\nMás información en https://github.com/LavenderG/AMQResultCalc", "Sobre AMQResultCalc", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
 	private JScrollPane getScrollPaneLog() {
 		if (scrollPaneLog == null) {
 			scrollPaneLog = new JScrollPane();
@@ -306,5 +314,19 @@ public class AMQResultCalcGUI extends JFrame {
 			textPaneResult.setToolTipText("Resultados");
 		}
 		return textPaneResult;
+	}
+	private JMenu getMnAyuda() {
+		if (mnAyuda == null) {
+			mnAyuda = new JMenu("Ayuda");
+			mnAyuda.add(getMntmSobreAmqresultcalc());
+		}
+		return mnAyuda;
+	}
+	private JMenuItem getMntmSobreAmqresultcalc() {
+		if (mntmSobreAmqresultcalc == null) {
+			mntmSobreAmqresultcalc = new JMenuItem("Sobre AMQResultCalc");
+			mntmSobreAmqresultcalc.addActionListener(new MntmSobreAmqresultcalcActionListener());
+		}
+		return mntmSobreAmqresultcalc;
 	}
 }
