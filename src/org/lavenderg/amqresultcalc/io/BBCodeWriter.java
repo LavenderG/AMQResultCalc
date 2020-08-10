@@ -164,16 +164,28 @@ public class BBCodeWriter {
 		// TODO: ordenar correctamente los puestos en caso de empate
 		ResultUtil.orderByPoints(calculatedResultsTable);
 		int positionCounter = 1;
+		int lastPlayerPoints = -1;
 		for (Result result : calculatedResultsTable) {
+			
+			// Obtener posición basada en los puntos del rival anterior (por si hay empate)
+			Integer currentPlayerPoints = result.getPlayerPoints();
+			int currentPlayerPosition;
+			if (currentPlayerPoints == lastPlayerPoints) {
+				currentPlayerPosition = positionCounter - 1;
+			} else {
+				currentPlayerPosition = positionCounter;
+			}
+			lastPlayerPoints = currentPlayerPoints;
+			
 			writer.write(INIT_TABLE_ROW);
 			writer.newLine();
 			writer.write(INIT_TABLE_DATA);
-			writer.write(positionCounter + ". " + result.getPlayerName());
+			writer.write(currentPlayerPosition + ". " + result.getPlayerName());
 			writer.newLine();
 			writer.write(END_TABLE_DATA);
 			writer.newLine();
 			writer.write(INIT_TABLE_DATA);
-			writer.write(result.getPlayerPoints().toString());
+			writer.write(currentPlayerPoints.toString());
 			writer.newLine();
 			writer.write(END_TABLE_DATA);
 			writer.newLine();

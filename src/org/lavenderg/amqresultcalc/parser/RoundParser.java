@@ -64,6 +64,7 @@ public class RoundParser {
 				}
 				
 				// Primer elemento del registro es el tipo; el segundo es el nombre de ronda; el tercero es la URL de la captura
+				// TODO: hacer URL opcional
 				String roundName = splitLine[1];
 				String roundType = splitLine[0];
 				String roundUrl = splitLine[2];
