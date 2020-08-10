@@ -46,6 +46,7 @@ import java.awt.event.InputEvent;
 public class AMQResultCalcGUI extends JFrame {
 
 	private static final long serialVersionUID = -1283616002326547034L;
+	private static final String AMQRC_VERSION = "0.4";
 	
 	private JPanel contentPane;
 	private JSplitPane splitPaneMainLog;
@@ -280,7 +281,7 @@ public class AMQResultCalcGUI extends JFrame {
 	}
 	class MntmSobreAmqresultcalcActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			JOptionPane.showMessageDialog(AMQResultCalcGUI.this, "Calculadora simple para resultados de AMQ.\nLicencia GPL-3.0.\nMás información en https://github.com/LavenderG/AMQResultCalc", "Sobre AMQResultCalc", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(AMQResultCalcGUI.this, String.format("Calculadora simple para resultados de AMQ.\nLicencia GPL-3.0.\nVersión %s\nMás información en https://github.com/LavenderG/AMQResultCalc", AMQRC_VERSION), "Sobre AMQResultCalc", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 	private JScrollPane getScrollPaneLog() {
