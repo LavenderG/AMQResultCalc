@@ -37,6 +37,12 @@ public class RoundParser {
 	private static final int ROUND_STD_RECORD_LENGTH = 3;
 	private static final int ROUND_BATTLEROYALE_RECORD_LENGTH = 5;
 	
+	// Texto de errores
+	private static final String PARSER_TEXT_ERROR_REVIVED_NAN = "Se esperaba un número en 'resucitado', se encontró: '%s'";
+	private static final String PARSER_TEXT_ERROR_LP_NAN = "Se esperaba un número en 'puntos de vida', se encontró: '%s'";
+	private static final String PARSER_TEXT_ERROR_ANSWERED_SONGS_NAN = "Se esperaba un número en 'número de respuestas', se encontró: '%s'";
+	private static final String PARSER_TEXT_ERROR_POSITION_NAN = "Se esperaba un número en 'posición', se encontró: '%s'";
+	
 	/**
 	 * Procesa una o más rondas y sus resultados desde un {@link File} y los convierte en {@link Round}.
 	 * @param resultFile El archivo usado en el procesamiento.
@@ -53,7 +59,7 @@ public class RoundParser {
 				String[] splitLine = line.split(FILE_RECORD_SEPARATOR);
 				if (splitLine.length != ROUND_BEGIN_RECORD_LENGTH) {
 					throw new InvalidBeginTagAMQParserException(
-							String.format("Invalid round begin tag: '%s'. Begin tag must have the format: keyword;Round name;Round screenshot URL", 
+							String.format("Registro inicial no válido: '%s'. El registro inicial debe tener el formato: Palabra clave inicial;Nombre de ronda;URL imagen", 
 									line, ROUND_BEGIN_RECORD_LENGTH));
 				}
 				
@@ -71,7 +77,7 @@ public class RoundParser {
 					break;
 				default:
 					throw new InvalidBeginTagAMQParserException(
-							String.format("Invalid round begin tag: '%s'", roundType));
+							String.format("Palabra clave inicial no válida: '%s'", roundType));
 				}
 			}
 		}
@@ -92,7 +98,7 @@ public class RoundParser {
 	private StandardRoundOutcome parseStandardRoundOutcome(String line) {
 		String[] outcome = line.split(FILE_RECORD_SEPARATOR);
 		if (outcome.length != ROUND_STD_RECORD_LENGTH) {
-			throw new InvalidRecordLengthAMQParserException(String.format("Invalid record: '%s'. Records must have the format: name;position;numberOfAnswers",
+			throw new InvalidRecordLengthAMQParserException(String.format("Registro no válido: '%s'. Los registros deben tener el formato: nombre:posición;número de respuestas",
 					line));
 		}
 		
@@ -100,7 +106,7 @@ public class RoundParser {
 		try {
 			position = Integer.parseInt(outcome[1]);
 		} catch (NumberFormatException e) {
-			throw new InvalidValueAMQParserException(String.format("A number was expected in 'position', encountered: '%s'",
+			throw new InvalidValueAMQParserException(String.format(PARSER_TEXT_ERROR_POSITION_NAN,
 					outcome[1]));
 		}
 		
@@ -108,7 +114,7 @@ public class RoundParser {
 		try {
 			answeredSongs = Integer.parseInt(outcome[2]);
 		} catch (NumberFormatException e) {
-			throw new InvalidValueAMQParserException(String.format("A number was expected in 'answeredSongs', encountered: '%s'",
+			throw new InvalidValueAMQParserException(String.format(PARSER_TEXT_ERROR_ANSWERED_SONGS_NAN,
 					outcome[2]));
 		}
 		
@@ -128,7 +134,7 @@ public class RoundParser {
 	private BattleRoyaleRoundOutcome parseBattleRoyaleRoundOutcome(String line) {
 		String[] outcome = line.split(FILE_RECORD_SEPARATOR);
 		if (outcome.length != ROUND_BATTLEROYALE_RECORD_LENGTH) {
-			throw new InvalidRecordLengthAMQParserException(String.format("Invalid record: '%s'. Records must have the format: nombre;posicion;aciertos;puntosdevida;resucitado",
+			throw new InvalidRecordLengthAMQParserException(String.format("Registro no válido: '%s'. Los registros deben tener el formato: nombre;posicion;aciertos;puntosdevida;resucitado",
 					line));
 		}
 		
@@ -136,7 +142,7 @@ public class RoundParser {
 		try {
 			position = Integer.parseInt(outcome[1]);
 		} catch (NumberFormatException e) {
-			throw new InvalidValueAMQParserException(String.format("Number expected in position, encountered: '%s'",
+			throw new InvalidValueAMQParserException(String.format(PARSER_TEXT_ERROR_POSITION_NAN,
 					outcome[1]));
 		}
 		
@@ -144,7 +150,7 @@ public class RoundParser {
 		try {
 			answeredSongs = Integer.parseInt(outcome[2]);
 		} catch (NumberFormatException e) {
-			throw new InvalidValueAMQParserException(String.format("Number expected in answeredSongs, encountered: '%s'",
+			throw new InvalidValueAMQParserException(String.format(PARSER_TEXT_ERROR_ANSWERED_SONGS_NAN,
 					outcome[2]));
 		}
 		
@@ -152,7 +158,7 @@ public class RoundParser {
 		try {
 			lifePoints = Integer.parseInt(outcome[3]);
 		} catch (NumberFormatException e) {
-			throw new InvalidValueAMQParserException(String.format("Number expected in lifePoints, encountered: '%s'",
+			throw new InvalidValueAMQParserException(String.format(PARSER_TEXT_ERROR_LP_NAN,
 					outcome[3]));
 		}
 		
@@ -160,7 +166,7 @@ public class RoundParser {
 		try {
 			revived = Integer.parseInt(outcome[4]) == 1 ? true : false;
 		} catch (NumberFormatException e) {
-			throw new InvalidValueAMQParserException(String.format("Number expected in revived, encountered: '%s'",
+			throw new InvalidValueAMQParserException(String.format(PARSER_TEXT_ERROR_REVIVED_NAN,
 					outcome[4]));
 		}
 		

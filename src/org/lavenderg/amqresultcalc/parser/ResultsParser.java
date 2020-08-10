@@ -37,7 +37,7 @@ public class ResultsParser {
 				String[] lineSplit = line.split(";");
 				if (lineSplit.length != RESULT_RECORD_LENGTH) {
 					throw new InvalidRecordLengthAMQParserException(String.format(
-							"Invalid record: '%s'. Records must have the format: name;points", 
+							"Registro inválido: '%s'. El registro debe tener el formato: nombre;puntos", 
 							line));
 				}
 				
@@ -46,7 +46,7 @@ public class ResultsParser {
 				try {
 					points = Integer.parseInt(lineSplit[1]);
 				} catch (NumberFormatException e) {
-					throw new InvalidValueAMQParserException(String.format("A number was expected in 'points', encountered: '%s'",
+					throw new InvalidValueAMQParserException(String.format("Se esperaba un número para los 'puntos', se encontró: '%s'",
 							lineSplit[1]));
 				}
 				
