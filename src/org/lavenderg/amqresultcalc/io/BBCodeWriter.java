@@ -161,6 +161,7 @@ public class BBCodeWriter {
 		writer.write(END_TABLE_ROW);
 		writer.newLine();
 		
+		// TODO: ordenar correctamente los puestos en caso de empate
 		ResultUtil.orderByPoints(calculatedResultsTable);
 		int positionCounter = 1;
 		for (Result result : calculatedResultsTable) {

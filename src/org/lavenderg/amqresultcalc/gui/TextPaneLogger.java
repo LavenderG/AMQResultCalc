@@ -14,11 +14,9 @@ import javax.swing.text.StyledDocument;
  */
 class TextPaneLogger {
 	
-	private final JTextPane textPane;
 	private StyledDocument document;
 	
 	public TextPaneLogger(JTextPane textPane) {
-		this.textPane = textPane;
 		this.document = textPane.getStyledDocument();
 	}
 	

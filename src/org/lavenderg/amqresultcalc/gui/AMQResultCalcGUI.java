@@ -59,14 +59,14 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenu mnCalcular;
 	private JMenuItem mntmGenerarResultados;
 	
-	private final RoundParser roundParser = new RoundParser();
-	private final ResultsParser resultsParser = new ResultsParser();
-	private final BBCodeWriter bbcode = new BBCodeWriter();
-	private final ResultWriter resultWriter = new ResultWriter();
-	private final TextPaneLogger paneLogger;
+	final RoundParser roundParser = new RoundParser();
+	final ResultsParser resultsParser = new ResultsParser();
+	final ResultWriter resultWriter = new ResultWriter();
+	final TextPaneLogger paneLogger;
+	final BBCodeWriter bbcode = new BBCodeWriter();
 	
-	private List<Result> resultadosCargados = null;
-	private List<Round> rondasCargadas = null;
+	List<Result> resultadosCargados = null;
+	List<Round> rondasCargadas = null;
 	private JScrollPane scrollPaneLog;
 	private JTextPane textPaneLog;
 	private JScrollPane scrollPaneRounds;
@@ -149,7 +149,7 @@ public class AMQResultCalcGUI extends JFrame {
 		if (mntmCargarRondas == null) {
 			mntmCargarRondas = new JMenuItem("Cargar rondas...");
 			mntmCargarRondas.setMnemonic('r');
-			mntmCargarRondas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
+			mntmCargarRondas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK));
 			mntmCargarRondas.addActionListener(new MntmCargarRondasActionListener());
 		}
 		return mntmCargarRondas;
@@ -158,7 +158,7 @@ public class AMQResultCalcGUI extends JFrame {
 		if (mntmCargarResultados == null) {
 			mntmCargarResultados = new JMenuItem("Cargar resultados previos...");
 			mntmCargarResultados.setMnemonic('p');
-			mntmCargarResultados.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_MASK));
+			mntmCargarResultados.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, InputEvent.CTRL_DOWN_MASK));
 			mntmCargarResultados.addActionListener(new MntmCargarResultadosActionListener());
 		}
 		return mntmCargarResultados;
@@ -189,13 +189,13 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenuItem getMntmGenerarResultados() {
 		if (mntmGenerarResultados == null) {
 			mntmGenerarResultados = new JMenuItem("Generar resultados");
-			mntmGenerarResultados.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_MASK));
+			mntmGenerarResultados.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G, InputEvent.CTRL_DOWN_MASK));
 			mntmGenerarResultados.setMnemonic('G');
 			mntmGenerarResultados.addActionListener(new MntmGenerarResultadosActionListener());
 		}
 		return mntmGenerarResultados;
 	}
-	private class MntmCargarRondasActionListener implements ActionListener {
+	class MntmCargarRondasActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			final JFileChooser fileChooser = new JFileChooser();
 			int retVal = fileChooser.showOpenDialog(AMQResultCalcGUI.this);
@@ -221,7 +221,7 @@ public class AMQResultCalcGUI extends JFrame {
 			}
 		}
 	}
-	private class MntmCargarResultadosActionListener implements ActionListener {
+	class MntmCargarResultadosActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			final JFileChooser fileChooser = new JFileChooser();
 			int retVal = fileChooser.showOpenDialog(AMQResultCalcGUI.this);
@@ -247,12 +247,12 @@ public class AMQResultCalcGUI extends JFrame {
 			}
 		}
 	}
-	private class MntmSalirActionListener implements ActionListener {
+	class MntmSalirActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			dispose();
 		}
 	}
-	private class MntmGenerarResultadosActionListener implements ActionListener {
+	class MntmGenerarResultadosActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			if (rondasCargadas == null) {
 				JOptionPane.showMessageDialog(AMQResultCalcGUI.this, "No se han podido generar los resultados. Es necesario cargar las rondas.", "Error al generar resultados", JOptionPane.ERROR_MESSAGE);
@@ -278,7 +278,7 @@ public class AMQResultCalcGUI extends JFrame {
 			}
 		}
 	}
-	private class MntmSobreAmqresultcalcActionListener implements ActionListener {
+	class MntmSobreAmqresultcalcActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			JOptionPane.showMessageDialog(AMQResultCalcGUI.this, "Calculadora simple para resultados de AMQ.\nLicencia GPL-3.0.\nMás información en https://github.com/LavenderG/AMQResultCalc", "Sobre AMQResultCalc", JOptionPane.INFORMATION_MESSAGE);
 		}
@@ -305,7 +305,7 @@ public class AMQResultCalcGUI extends JFrame {
 		}
 		return scrollPaneRounds;
 	}
-	private JTextPane getTextPaneRounds() {
+	JTextPane getTextPaneRounds() {
 		if (textPaneRounds == null) {
 			textPaneRounds = new JTextPane();
 			textPaneRounds.setToolTipText("Rondas");
@@ -320,7 +320,7 @@ public class AMQResultCalcGUI extends JFrame {
 		}
 		return scrollPaneResults;
 	}
-	private JTextPane getTextPaneResult() {
+	JTextPane getTextPaneResult() {
 		if (textPaneResult == null) {
 			textPaneResult = new JTextPane();
 			textPaneResult.setEditable(false);
