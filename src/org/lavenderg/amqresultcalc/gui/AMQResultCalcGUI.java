@@ -106,7 +106,18 @@ public class AMQResultCalcGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.add(getSplitPaneMainLog(), BorderLayout.CENTER);
 		paneLogger = new TextPaneLogger(textPaneLog);
+		logInitMessage();
 	}
+	
+	private void logInitMessage() {
+		try {
+			paneLogger.logInfo("AMQResultCalc versión " + AMQRC_VERSION);
+			paneLogger.logInfo("Directorio actual: " + System.getProperty("user.dir"));
+		} catch (BadLocationException e) {
+			JOptionPane.showMessageDialog(AMQResultCalcGUI.this, "Un error ha ocurrido al escribir en el log.", "Error al escribir en el log", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
 	private JSplitPane getSplitPaneMainLog() {
 		if (splitPaneMainLog == null) {
 			splitPaneMainLog = new JSplitPane();
