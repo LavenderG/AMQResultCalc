@@ -1,7 +1,7 @@
 # AMQResultCalc
 La aplicación **AMQResultCalc** permite generar automáticamente los resultados de AMQ de una o más rondas. Para ello necesitará dos archivos de entrada: un archivo con los resultados de las rondas realizadas y otro archivo con los resultados previos (necesario para sumar los resultados calculados a los resultados previos).
 
-La aplicación generará dos archivos de salida: un archivo **post.bbc** con el post automático en formato BBCode listo para ser posteado (salvo las capturas de pantalla y la fecha de las rondas), y un archivo **resultados_out.amq** con los resultados totales que podrá ser utilizado como archivos de resultados previos en siguientes cálculos del programa
+La aplicación generará dos archivos de salida: un archivo **post.bbc** con el post automático en formato BBCode listo para ser posteado (salvo la fecha de las rondas), y un archivo **resultados_out.amq** con los resultados totales que podrá ser utilizado como archivos de resultados previos en siguientes cálculos del programa
 
 ## Instalación
 
