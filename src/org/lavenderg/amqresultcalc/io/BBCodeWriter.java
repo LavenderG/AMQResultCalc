@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +23,8 @@ public class BBCodeWriter {
 	private static final String TEXT_PLAYERS_AND_DATE = "Resultados del %s con los siguientes jugadores presentes: %s.";
 	private static final String TEXT_RESULTS_WERE = "Los resultados fueron los siguientes:";
 	private static final String TEXT_FOLLOWING_POINTS = "Con estos resultados los jugadores obtuvieron los siguientes puntos...";
-	private static final String TEXT_AGGREGATE_HEADER = "RESULTADOS TRAS LA RONDA";
+	private static final String TEXT_AGGREGATE_HEADER = "RESULTADOS DEL MES";
+	private static final String TEXT_WEEKLY_HEADER = "RESULTADOS DE LA SEMANA";
 	private static final String DIV_CENTER_OPENING = "[div align=\"center\"]";
 	private static final String DIV_HEADER = "[div align=\"center\"][font size=\"4\"][font color=\"1979e6\"][b]";
 	private static final String DIV_CLOSE = "[/div]";
@@ -53,6 +55,8 @@ public class BBCodeWriter {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
 			logNumberOfPlayers(rounds, writer);
 			logRoundsWithPoints(rounds, writer);
+			logWeeklyResultsHeader(rounds, writer);
+			logWeekTable(ResultUtil.calculateResultsTable(rounds, new ArrayList<Result>()), writer);
 			logAggregateResultsHeader(rounds, writer);
 			logResultsTable(ResultUtil.calculateResultsTable(rounds, previousResults), writer);
 		}
@@ -161,11 +165,78 @@ public class BBCodeWriter {
 		writer.write(END_TABLE_ROW);
 		writer.newLine();
 		
-		// TODO: ordenar correctamente los puestos en caso de empate
 		ResultUtil.orderByPoints(calculatedResultsTable);
 		int positionCounter = 1;
 		int lastPlayerPoints = -1;
 		for (Result result : calculatedResultsTable) {
+			
+			// Obtener posición basada en los puntos del rival anterior (por si hay empate)
+			Integer currentPlayerPoints = result.getPlayerPoints();
+			int currentPlayerPosition;
+			if (currentPlayerPoints == lastPlayerPoints) {
+				currentPlayerPosition = positionCounter - 1;
+			} else {
+				currentPlayerPosition = positionCounter;
+			}
+			lastPlayerPoints = currentPlayerPoints;
+			
+			writer.write(INIT_TABLE_ROW);
+			writer.newLine();
+			writer.write(INIT_TABLE_DATA);
+			writer.write(currentPlayerPosition + ". " + result.getPlayerName());
+			writer.newLine();
+			writer.write(END_TABLE_DATA);
+			writer.newLine();
+			writer.write(INIT_TABLE_DATA);
+			writer.write(currentPlayerPoints.toString());
+			writer.newLine();
+			writer.write(END_TABLE_DATA);
+			writer.newLine();
+			writer.write(END_TABLE_ROW);
+			writer.newLine();
+			positionCounter++;
+		}
+		
+		writer.write(END_TABLE);
+		writer.newLine();
+		writer.write(DIV_CLOSE);
+		writer.newLine();
+	}
+	
+	private void logWeeklyResultsHeader(List<Round> rounds, BufferedWriter writer) throws IOException {
+		writer.write(DIV_HEADER);
+		writer.newLine();
+		writer.write(TEXT_WEEKLY_HEADER);
+		writer.newLine();
+		writer.write(DIV_HEADER_CLOSE);
+		writer.newLine();
+		writer.newLine();
+	}
+	
+	private void logWeekTable(List<Result> weekResults, BufferedWriter writer) throws IOException {
+		writer.write(DIV_CENTER_OPENING);
+		writer.newLine();
+		
+		writer.write(INIT_TABLE);
+		writer.newLine();
+		writer.write(INIT_TABLE_ROW);
+		writer.newLine();
+		writer.write(INIT_TABLE_DATA);
+		writer.write(TABLE_HEADER_PLAYER);
+		writer.newLine();
+		writer.write(END_TABLE_DATA);
+		writer.newLine();
+		writer.write(INIT_TABLE_DATA);
+		writer.write(TABLE_HEADER_POINTS);
+		writer.newLine();
+		writer.write(END_TABLE_DATA);
+		writer.newLine();
+		writer.write(END_TABLE_ROW);
+		writer.newLine();
+		ResultUtil.orderByPoints(weekResults);
+		int positionCounter = 1;
+		int lastPlayerPoints = -1;
+		for (Result result : weekResults) {
 			
 			// Obtener posición basada en los puntos del rival anterior (por si hay empate)
 			Integer currentPlayerPoints = result.getPlayerPoints();
