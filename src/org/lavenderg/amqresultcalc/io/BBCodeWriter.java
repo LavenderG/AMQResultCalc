@@ -56,9 +56,12 @@ public class BBCodeWriter {
 			logNumberOfPlayers(rounds, writer);
 			logRoundsWithPoints(rounds, writer);
 			logWeeklyResultsHeader(rounds, writer);
-			logWeekTable(ResultUtil.calculateResultsTable(rounds, new ArrayList<Result>()), writer);
+			List<Result> weekResults = ResultUtil.calculateResultsTable(rounds, new ArrayList<Result>());
+			logWeekTable(weekResults, writer);
 			logAggregateResultsHeader(rounds, writer);
 			logResultsTable(ResultUtil.calculateResultsTable(rounds, previousResults), writer);
+			logBannedList(weekResults, writer);
+			logTagBanningUsers(weekResults, writer);
 		}
 		
 		
@@ -269,5 +272,17 @@ public class BBCodeWriter {
 		writer.newLine();
 		writer.write(DIV_CLOSE);
 		writer.newLine();
+	}
+	
+	private void logBannedList(List<Result> weekResults, BufferedWriter writer) {
+		// TODO Obtener la persona más votada e informar de lista baneada
+		throw new UnsupportedOperationException();
+		
+	}
+	
+	private void logTagBanningUsers(List<Result> weekResults, BufferedWriter writer) {
+		// TODO Obtener las personas que van a banear los tags
+		throw new UnsupportedOperationException();
+		
 	}
 }
