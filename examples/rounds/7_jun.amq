@@ -1,4 +1,4 @@
-BEGINSTDROUND;Ronda 1
+BEGINSTDROUND;Ronda 1;https://www.example.org
 Hatsujaya;1;8
 Keme;2;7
 Jerao91;2;7
@@ -8,7 +8,7 @@ vader;5;3
 LavenderG;5;3
 Razeus;8;2
 ENDSTDROUND
-BEGINSTDROUND;Ronda 2
+BEGINSTDROUND;Ronda 2;https://www.example.org
 Hatsujaya;1;8
 santygrass;2;6
 Keme;2;6
@@ -19,7 +19,7 @@ Pacochef;7;2
 Razeus;7;2
 vader;7;2
 ENDSTDROUND
-BEGINSTDROUND;Ronda 3
+BEGINSTDROUND;Ronda 3;https://www.example.org
 Keme;1;7
 Hatsujaya;1;7
 Jerao91;4;5
@@ -29,7 +29,7 @@ gooses;7;1
 vader;7;1
 Pacochef;9;0
 ENDSTDROUND
-BEGINSTDROUND;Ronda 4
+BEGINSTDROUND;Ronda 4;https://www.example.org
 Hatsujaya;1;8
 santygrass;2;6
 Jerao91;3;5
@@ -38,7 +38,7 @@ LavenderG;5;2
 Razeus;6;1
 vader;6;1
 ENDSTDROUND
-BEGINBATTLEROYALE;Battle Royale 1
+BEGINBATTLEROYALE;Battle Royale 1;https://www.example.org
 santygrass;1;14;4;0
 Jerao91;2;12;2;0
 Hatsujaya;3;11;1;0
