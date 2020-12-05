@@ -46,7 +46,7 @@ import java.awt.event.InputEvent;
 public class AMQResultCalcGUI extends JFrame {
 
 	private static final long serialVersionUID = -1283616002326547034L;
-	private static final String AMQRC_VERSION = "0.4";
+	private static final String AMQRC_VERSION = "0.5";
 	
 	private JPanel contentPane;
 	private JSplitPane splitPaneMainLog;
