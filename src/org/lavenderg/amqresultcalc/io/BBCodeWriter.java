@@ -60,8 +60,9 @@ public class BBCodeWriter {
 			logWeekTable(weekResults, writer);
 			logAggregateResultsHeader(rounds, writer);
 			logResultsTable(ResultUtil.calculateResultsTable(rounds, previousResults), writer);
-			logBannedList(weekResults, writer);
-			logTagBanningUsers(weekResults, writer);
+			// TODO: implementar
+//			logBannedList(weekResults, writer);
+//			logTagBanningUsers(weekResults, writer);
 		}
 		
 		
