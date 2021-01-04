@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.lavenderg.amqresultcalc.logic.result.Result;
 import org.lavenderg.amqresultcalc.logic.result.ResultUtil;
 import org.lavenderg.amqresultcalc.logic.round.Round;
