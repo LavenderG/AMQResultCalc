@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.lavenderg.amqresultcalc.logic.result.Result;
@@ -25,6 +27,7 @@ public class BBCodeWriter {
 	private static final String TEXT_FOLLOWING_POINTS = "Con estos resultados los jugadores obtuvieron los siguientes puntos...";
 	private static final String TEXT_AGGREGATE_HEADER = "RESULTADOS DEL MES";
 	private static final String TEXT_WEEKLY_HEADER = "RESULTADOS DE LA SEMANA";
+	private static final String TEXT_BANNED_LIST = "El jugador cuya lista será baneada la siguiente semana es: [b]%s[/b].";
 	private static final String DIV_CENTER_OPENING = "[div align=\"center\"]";
 	private static final String DIV_HEADER = "[div align=\"center\"][font size=\"4\"][font color=\"1979e6\"][b]";
 	private static final String DIV_CLOSE = "[/div]";
@@ -61,8 +64,8 @@ public class BBCodeWriter {
 			logAggregateResultsHeader(rounds, writer);
 			logResultsTable(ResultUtil.calculateResultsTable(rounds, previousResults), writer);
 			// TODO: implementar
-//			logBannedList(weekResults, writer);
-//			logTagBanningUsers(weekResults, writer);
+			logBannedList(weekResults, writer);
+			//logTagBanningUsers(weekResults, writer);
 		}
 		
 		
@@ -275,9 +278,14 @@ public class BBCodeWriter {
 		writer.newLine();
 	}
 	
-	private void logBannedList(List<Result> weekResults, BufferedWriter writer) {
-		// TODO Obtener la persona más votada e informar de lista baneada
-		throw new UnsupportedOperationException();
+	private void logBannedList(List<Result> weekResults, BufferedWriter writer) throws IOException {
+		Optional<Result> bannedPlayerResult  = weekResults.stream().max(Comparator.comparing(Result::getPlayerPoints));
+		if (bannedPlayerResult.isPresent()) {
+			String bannedListPlayer = bannedPlayerResult.get().getPlayerName();
+			writer.write(String.format(TEXT_BANNED_LIST, bannedListPlayer));
+			writer.newLine();
+			writer.newLine();
+		}
 		
 	}
 	
