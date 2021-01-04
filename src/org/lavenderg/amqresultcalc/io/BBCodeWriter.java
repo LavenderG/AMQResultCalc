@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.lavenderg.amqresultcalc.logic.result.Result;
 import org.lavenderg.amqresultcalc.logic.result.ResultUtil;
@@ -28,6 +30,8 @@ public class BBCodeWriter {
 	private static final String TEXT_AGGREGATE_HEADER = "RESULTADOS DEL MES";
 	private static final String TEXT_WEEKLY_HEADER = "RESULTADOS DE LA SEMANA";
 	private static final String TEXT_BANNED_LIST = "El jugador cuya lista será baneada la siguiente semana es: [b]%s[/b].";
+	private static final String TEXT_BANNED_TAG_ONE = "El jugador [b]%s[/b] baneará 1 tag la siguiente semana.";
+	private static final String TEXT_BANNED_TAG_TWO = "El jugador [b]%s[/b] baneará 2 tags la siguiente semana.";
 	private static final String DIV_CENTER_OPENING = "[div align=\"center\"]";
 	private static final String DIV_HEADER = "[div align=\"center\"][font size=\"4\"][font color=\"1979e6\"][b]";
 	private static final String DIV_CLOSE = "[/div]";
@@ -63,9 +67,9 @@ public class BBCodeWriter {
 			logWeekTable(weekResults, writer);
 			logAggregateResultsHeader(rounds, writer);
 			logResultsTable(ResultUtil.calculateResultsTable(rounds, previousResults), writer);
-			// TODO: implementar
+
 			logBannedList(weekResults, writer);
-			//logTagBanningUsers(weekResults, writer);
+			logTagBanningUsers(weekResults, writer);
 		}
 		
 		
@@ -279,7 +283,7 @@ public class BBCodeWriter {
 	}
 	
 	private void logBannedList(List<Result> weekResults, BufferedWriter writer) throws IOException {
-		Optional<Result> bannedPlayerResult  = weekResults.stream().max(Comparator.comparing(Result::getPlayerPoints));
+		Optional<Result> bannedPlayerResult  = weekResults.stream().parallel().max(Comparator.comparing(Result::getPlayerPoints));
 		if (bannedPlayerResult.isPresent()) {
 			String bannedListPlayer = bannedPlayerResult.get().getPlayerName();
 			writer.write(String.format(TEXT_BANNED_LIST, bannedListPlayer));
@@ -289,9 +293,18 @@ public class BBCodeWriter {
 		
 	}
 	
-	private void logTagBanningUsers(List<Result> weekResults, BufferedWriter writer) {
-		// TODO Obtener las personas que van a banear los tags
-		throw new UnsupportedOperationException();
+	private void logTagBanningUsers(List<Result> weekResults, BufferedWriter writer) throws IOException {
+		List<Result> orderedResults = weekResults.stream().parallel().sorted((a, b) -> b.getPlayerPoints().compareTo(a.getPlayerPoints())).
+				                      collect(Collectors.toList());
+		Result lastPlayerResult = orderedResults.get(orderedResults.size() - 1);
+		Result penultimatePlayerResult = orderedResults.get(orderedResults.size() - 2);
+		
+		writer.write(String.format(TEXT_BANNED_TAG_TWO, lastPlayerResult.getPlayerName()));
+		writer.newLine();
+		writer.newLine();
+		writer.write(String.format(TEXT_BANNED_TAG_ONE, penultimatePlayerResult.getPlayerName()));
+		writer.newLine();
+		writer.newLine();
 		
 	}
 }
