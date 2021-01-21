@@ -185,7 +185,7 @@ public class AMQResultCalcGUI extends JFrame {
 		if (mntmSalir == null) {
 			mntmSalir = new JMenuItem("Salir");
 			mntmSalir.setMnemonic('S');
-			mntmSalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
+			mntmSalir.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK));
 			mntmSalir.addActionListener(new MntmSalirActionListener());
 		}
 		return mntmSalir;
