@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.lavenderg.amqresultcalc.exceptions.InvalidBeginTagAMQParserException;
@@ -24,10 +25,10 @@ import org.lavenderg.amqresultcalc.logic.round.StandardRoundOutcome;
 public class RoundParser {
 	
 	// Etiquetas parser
-	private static final String ROUND_STD_BEGIN = "BEGINSTDROUND";
-	private static final String ROUND_STD_END   = "ENDSTDROUND";
-	private static final String ROUND_BATTLEROYALE_BEGIN = "BEGINBATTLEROYALE";
-	private static final String ROUND_BATTLEROYALE_END   = "ENDBATTLEROYALE";
+	private static final String[] ROUND_STD_BEGIN_TAGS = {"BEGINSTDROUND", "STD"};
+	private static final String[] ROUND_STD_END_TAGS   = {"ENDSTDROUND", "STDEND"};
+	private static final String[] ROUND_BATTLEROYALE_BEGIN_TAGS = {"BEGINBATTLEROYALE", "BR"};
+	private static final String[] ROUND_BATTLEROYALE_END_TAGS   = {"ENDBATTLEROYALE", "BREND"};
 	
 	// CSV separador
 	private static final String FILE_RECORD_SEPARATOR = ";";
@@ -64,22 +65,19 @@ public class RoundParser {
 				}
 				
 				// Primer elemento del registro es el tipo; el segundo es el nombre de ronda; el tercero es la URL de la captura
-				// TODO: hacer URL opcional
 				String roundName = splitLine[1];
 				String roundType = splitLine[0];
 				String roundUrl = splitLine[2];
-				// Check round type
-				switch (roundType) {
-				case ROUND_STD_BEGIN:
+				
+				// Comprobar tipo de ronda
+				if (Arrays.asList(ROUND_STD_BEGIN_TAGS).contains(roundType)) {
 					rounds.add(parseStandardRound(reader, roundName, roundUrl));
-					break;
-				case ROUND_BATTLEROYALE_BEGIN:
+				} else if (Arrays.asList(ROUND_BATTLEROYALE_BEGIN_TAGS).contains(roundType)) {
 					rounds.add(parseBattleRoyaleRound(reader, roundName, roundUrl));
-					break;
-				default:
+				} else {
 					throw new InvalidBeginTagAMQParserException(
 							String.format("Palabra clave inicial no válida: '%s'", roundType));
-				}
+				}	
 			}
 		}
 		
@@ -89,7 +87,7 @@ public class RoundParser {
 	private Round parseStandardRound(BufferedReader reader, String roundName, String roundUrl) throws IOException {
 		List<StandardRoundOutcome> outcomes = new ArrayList<StandardRoundOutcome>();
 		String line;
-		while (!(line = reader.readLine()).equals(ROUND_STD_END)) {
+		while (!Arrays.asList(ROUND_STD_END_TAGS).contains((line = reader.readLine()))) {
 			outcomes.add(parseStandardRoundOutcome(line));
 		}
 		
@@ -125,7 +123,7 @@ public class RoundParser {
 	private Round parseBattleRoyaleRound(BufferedReader reader, String roundName, String roundUrl) throws IOException {
 		List<BattleRoyaleRoundOutcome> outcomes = new ArrayList<BattleRoyaleRoundOutcome>();
 		String line;
-		while (!(line = reader.readLine()).equals(ROUND_BATTLEROYALE_END)) {
+		while (!Arrays.asList(ROUND_BATTLEROYALE_END_TAGS).contains((line = reader.readLine()))) {
 			outcomes.add(parseBattleRoyaleRoundOutcome(line));
 		}
 		
