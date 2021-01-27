@@ -30,6 +30,8 @@ public class BBCodeWriter {
 	private static final String TEXT_BANNED_LIST = "El jugador cuya lista será baneada la siguiente semana es: [b]%s[/b].";
 	private static final String TEXT_BANNED_TAG_ONE = "El jugador [b]%s[/b] baneará 1 tag la siguiente semana.";
 	private static final String TEXT_BANNED_TAG_TWO = "El jugador [b]%s[/b] baneará 2 tags la siguiente semana.";
+	private static final String TEXT_NEXT_WEEK_SCHEDULE = "Estos serán, en principio, los horarios del siguiente fin de semana:";
+	private static final String TEXT_NEXT_TIME = "La hora de ambas partidas será la siguiente:";
 	private static final String DIV_CENTER_OPENING = "[div align=\"center\"]";
 	private static final String DIV_HEADER = "[div align=\"center\"][font size=\"4\"][font color=\"1979e6\"][b]";
 	private static final String DIV_CLOSE = "[/div]";
@@ -48,15 +50,40 @@ public class BBCodeWriter {
 	private static final String SPOILER_END_TAG = "[/spoiler]";
 	private static final String IMG_TAG_FORMATTED = "[img style=\"%s\" src=\"%s\" alt=\" \"]";
 	private static final String IMG_ATTRIB_WIDTH = "max-width:100%;";
+	private static final String HR_TAG = "[hr]";
+	private static final String UL_CIRCLE_TAG = "[ul type=\"disc\"]";
+	private static final String UL_SCHEDULE_ELEMENT = "[li][b]%s:[/b] %s[/li]";
+	private static final String UL_TIME_ELEMENT = "[li][b]%s[/b] (%s): [b]%s[/b][/li]";
+	private static final String UL_END_TAG = "[/ul]";
+	
+	// Horarios
+	// TODO guardar horarios en archivo
+	private static final CountryTime[] COUNTRY_TIMES = {
+			new CountryTime("España", "UTC+1 península", "18:00"),
+			new CountryTime("Argentina", "UTC-3", "14:00"), 
+			new CountryTime("Chile", "UTC-3 continental", "14:00"),
+			new CountryTime("Perú", "UTC-5", "12:00"),
+			new CountryTime("Costa Rica", "UTC-6", "11:00"), 
+			new CountryTime("México", "UTC-7 zona Pacífico", "10:00")
+	};
+	
+	// Menciones
+	// TODO guardar menciones en archivo
+	private static final String[] MENTIONS = {
+			"gooses", "avader", "lyon", "pacochef", "sweeneity",
+			"topocr", "darkizard", "sapphire", "jerk", "keme", "hatsujaya"
+	};
+	
 	
 	/**
 	 * Escribe BBCode asociado con las rondas y resultados al archivo dado.
 	 * @param rounds Lista de rondas que serán procesadas en BBCode, como {@link List} de {@link Round}.
 	 * @param previousResults Resultados previos para realizar la adición de puntos, como {@link List} de {@link Result}.
 	 * @param outFile Archivo de salida, como {@link File}.
+	 * @param log 
 	 * @throws IOException
 	 */
-	public void logRounds(List<Round> rounds, List<Result> previousResults, File outFile) throws IOException {
+	public void logRounds(List<Round> rounds, List<Result> previousResults, File outFile, boolean logSchedule) throws IOException {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
 			logNumberOfPlayers(rounds, writer);
 			logRoundsWithPoints(rounds, writer);
@@ -68,6 +95,9 @@ public class BBCodeWriter {
 
 			logBannedList(weekResults, writer);
 			logTagBanningUsers(weekResults, writer);
+			if (logSchedule) {
+				logWeeklySchedule(writer);
+			}
 		}
 		
 		
@@ -304,5 +334,35 @@ public class BBCodeWriter {
 		writer.newLine();
 		writer.newLine();
 		
+	}
+	
+	private void logWeeklySchedule(BufferedWriter writer) throws IOException {
+		writer.write(HR_TAG);
+		writer.write(TEXT_NEXT_WEEK_SCHEDULE);
+		writer.newLine();
+		writer.write(UL_CIRCLE_TAG);
+		writer.newLine();
+		writer.write(String.format(UL_SCHEDULE_ELEMENT, "Sábado", "2 partidas normales + 1 battle royale"));
+		writer.newLine();
+		writer.write(String.format(UL_SCHEDULE_ELEMENT, "Domingo", "2 partidas normales + 1 battle royale"));
+		writer.newLine();
+		writer.write(UL_END_TAG);
+		writer.newLine();
+		writer.write(TEXT_NEXT_TIME);
+		writer.newLine();
+		writer.write(UL_CIRCLE_TAG);
+		writer.newLine();
+		for (CountryTime countryTime : COUNTRY_TIMES) {
+			writer.write(String.format(UL_TIME_ELEMENT, countryTime.getCountry(), countryTime.getTimezone(),
+					countryTime.getTime()));
+			writer.newLine();
+		}
+		writer.write(UL_END_TAG);
+		writer.write(HR_TAG);
+		writer.newLine();
+		for (String mention : MENTIONS) {
+			writer.write("@" + mention);
+			writer.write(" ");
+		}
 	}
 }

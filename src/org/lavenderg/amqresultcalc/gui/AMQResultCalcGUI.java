@@ -37,6 +37,7 @@ import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
+import javax.swing.JCheckBoxMenuItem;
 
 /**
  * Clase que forma la interfaz gráfica de la aplicación.
@@ -76,6 +77,8 @@ public class AMQResultCalcGUI extends JFrame {
 	private JTextPane textPaneResult;
 	private JMenu mnAyuda;
 	private JMenuItem mntmSobreAmqresultcalc;
+	private JMenu menuOpciones;
+	private JCheckBoxMenuItem chckbxmntmHorarioPost;
 
 	
 	public static void main(String[] args) {
@@ -142,6 +145,7 @@ public class AMQResultCalcGUI extends JFrame {
 			menuBar = new JMenuBar();
 			menuBar.add(getMenuFile());
 			menuBar.add(getMnCalcular());
+			menuBar.add(getMenuOpciones());
 			menuBar.add(getMnAyuda());
 		}
 		return menuBar;
@@ -278,7 +282,7 @@ public class AMQResultCalcGUI extends JFrame {
 				File postBBC = new File("post_amq.bbc");
 				File resultados = new File("resultados_out.amq");
 				paneLogger.logInfo("Generando resultados...");
-				bbcode.logRounds(rondasCargadas, resultadosCargados, postBBC);
+				bbcode.logRounds(rondasCargadas, resultadosCargados, postBBC, getChckbxmntmHorarioPost().getState());
 				paneLogger.logSuccess("Resultados generados correctamente.");
 				paneLogger.logSuccess(String.format("Post guardado en el archivo %s", postBBC.getAbsolutePath()));
 				resultWriter.logResults(ResultUtil.calculateResultsTable(rondasCargadas, resultadosCargados), resultados);
@@ -356,5 +360,20 @@ public class AMQResultCalcGUI extends JFrame {
 			mntmSobreAmqresultcalc.addActionListener(new MntmSobreAmqresultcalcActionListener());
 		}
 		return mntmSobreAmqresultcalc;
+	}
+	private JMenu getMenuOpciones() {
+		if (menuOpciones == null) {
+			menuOpciones = new JMenu("Opciones");
+			menuOpciones.setMnemonic('O');
+			menuOpciones.add(getChckbxmntmHorarioPost());
+		}
+		return menuOpciones;
+	}
+	private JCheckBoxMenuItem getChckbxmntmHorarioPost() {
+		if (chckbxmntmHorarioPost == null) {
+			chckbxmntmHorarioPost = new JCheckBoxMenuItem("Añadir horarios al post BBC");
+			chckbxmntmHorarioPost.setMnemonic('h');
+		}
+		return chckbxmntmHorarioPost;
 	}
 }
