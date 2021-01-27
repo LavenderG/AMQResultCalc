@@ -32,6 +32,7 @@ public class BBCodeWriter {
 	private static final String TEXT_BANNED_TAG_TWO = "El jugador [b]%s[/b] baneará 2 tags la siguiente semana.";
 	private static final String TEXT_NEXT_WEEK_SCHEDULE = "Estos serán, en principio, los horarios del siguiente fin de semana:";
 	private static final String TEXT_NEXT_TIME = "La hora de ambas partidas será la siguiente:";
+	private static final String TEXT_NEW_WITH_PAIRS = "Las rondas del siguiente fin de semana se realizarán [b]en parejas[/b].";
 	private static final String DIV_CENTER_OPENING = "[div align=\"center\"]";
 	private static final String DIV_HEADER = "[div align=\"center\"][font size=\"4\"][font color=\"1979e6\"][b]";
 	private static final String DIV_CLOSE = "[/div]";
@@ -80,10 +81,11 @@ public class BBCodeWriter {
 	 * @param rounds Lista de rondas que serán procesadas en BBCode, como {@link List} de {@link Round}.
 	 * @param previousResults Resultados previos para realizar la adición de puntos, como {@link List} de {@link Result}.
 	 * @param outFile Archivo de salida, como {@link File}.
+	 * @param warn 
 	 * @param log 
 	 * @throws IOException
 	 */
-	public void logRounds(List<Round> rounds, List<Result> previousResults, File outFile, boolean logSchedule) throws IOException {
+	public void logRounds(List<Round> rounds, List<Result> previousResults, File outFile, boolean logSchedule, boolean warnPairs) throws IOException {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
 			logNumberOfPlayers(rounds, writer);
 			logRoundsWithPoints(rounds, writer);
@@ -96,7 +98,7 @@ public class BBCodeWriter {
 			logBannedList(weekResults, writer);
 			logTagBanningUsers(weekResults, writer);
 			if (logSchedule) {
-				logWeeklySchedule(writer);
+				logWeeklySchedule(writer, warnPairs);
 			}
 		}
 		
@@ -336,8 +338,10 @@ public class BBCodeWriter {
 		
 	}
 	
-	private void logWeeklySchedule(BufferedWriter writer) throws IOException {
+	private void logWeeklySchedule(BufferedWriter writer, boolean warnPairs) throws IOException {
 		writer.write(HR_TAG);
+		writer.write(TEXT_NEW_WITH_PAIRS);
+		writer.newLine();
 		writer.write(TEXT_NEXT_WEEK_SCHEDULE);
 		writer.newLine();
 		writer.write(UL_CIRCLE_TAG);

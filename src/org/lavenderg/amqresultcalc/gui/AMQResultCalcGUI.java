@@ -79,6 +79,7 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenuItem mntmSobreAmqresultcalc;
 	private JMenu menuOpciones;
 	private JCheckBoxMenuItem chckbxmntmHorarioPost;
+	private JCheckBoxMenuItem chckbxmntmParejas;
 
 	
 	public static void main(String[] args) {
@@ -282,7 +283,8 @@ public class AMQResultCalcGUI extends JFrame {
 				File postBBC = new File("post_amq.bbc");
 				File resultados = new File("resultados_out.amq");
 				paneLogger.logInfo("Generando resultados...");
-				bbcode.logRounds(rondasCargadas, resultadosCargados, postBBC, getChckbxmntmHorarioPost().getState());
+				bbcode.logRounds(rondasCargadas, resultadosCargados, postBBC, getChckbxmntmHorarioPost().getState(),
+						getChckbxmntmParejas().getState());
 				paneLogger.logSuccess("Resultados generados correctamente.");
 				paneLogger.logSuccess(String.format("Post guardado en el archivo %s", postBBC.getAbsolutePath()));
 				resultWriter.logResults(ResultUtil.calculateResultsTable(rondasCargadas, resultadosCargados), resultados);
@@ -366,6 +368,7 @@ public class AMQResultCalcGUI extends JFrame {
 			menuOpciones = new JMenu("Opciones");
 			menuOpciones.setMnemonic('O');
 			menuOpciones.add(getChckbxmntmHorarioPost());
+			menuOpciones.add(getChckbxmntmParejas());
 		}
 		return menuOpciones;
 	}
@@ -375,5 +378,12 @@ public class AMQResultCalcGUI extends JFrame {
 			chckbxmntmHorarioPost.setMnemonic('h');
 		}
 		return chckbxmntmHorarioPost;
+	}
+	private JCheckBoxMenuItem getChckbxmntmParejas() {
+		if (chckbxmntmParejas == null) {
+			chckbxmntmParejas = new JCheckBoxMenuItem("Añadir aviso de parejas al horario");
+			chckbxmntmParejas.setMnemonic('p');
+		}
+		return chckbxmntmParejas;
 	}
 }
