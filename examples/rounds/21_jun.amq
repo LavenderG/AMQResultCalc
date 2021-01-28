@@ -1,4 +1,4 @@
-BEGINSTDROUND;Ronda 1;https://www.example.org
+STD;Ronda 1;https://www.example.org
 Vainilla;1;7
 Keme;2;6
 Jerao91;2;6
@@ -7,8 +7,8 @@ gooses;4;5
 LavenderG;6;2
 Razeus;7;1
 vader;8;0
-ENDSTDROUND
-BEGINSTDROUND;Ronda 2;https://www.example.org
+STDEND
+STD;Ronda 2;https://www.example.org
 Vainilla;1;10
 Keme;2;8
 Hatsujaya;3;7
@@ -17,8 +17,8 @@ gooses;5;2
 Razeus;5;2
 vader;5;2
 LavenderG;5;2
-ENDSTDROUND
-BEGINSTDROUND;Ronda 3;https://www.example.org
+STDEND
+STD;Ronda 3;https://www.example.org
 Keme;1;8
 Jerao91;2;7
 Hatsujaya;3;6
@@ -27,4 +27,4 @@ gooses;5;4
 LavenderG;5;4
 Razeus;7;3
 vader;7;3
-ENDSTDROUND
+STDEND
