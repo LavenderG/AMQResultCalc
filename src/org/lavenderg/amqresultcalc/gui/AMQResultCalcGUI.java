@@ -47,7 +47,7 @@ import javax.swing.JCheckBoxMenuItem;
 public class AMQResultCalcGUI extends JFrame {
 
 	private static final long serialVersionUID = -1283616002326547034L;
-	private static final String AMQRC_VERSION = "0.6";
+	private static final String AMQRC_VERSION = "0.7";
 	
 	private JPanel contentPane;
 	private JSplitPane splitPaneMainLog;
