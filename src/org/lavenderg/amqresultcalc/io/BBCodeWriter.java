@@ -341,7 +341,9 @@ public class BBCodeWriter {
 	
 	private void logWeeklySchedule(BufferedWriter writer, boolean warnPairs) throws IOException {
 		writer.write(HR_TAG);
-		writer.write(TEXT_NEW_WITH_PAIRS);
+		if (warnPairs) {
+			writer.write(TEXT_NEW_WITH_PAIRS);
+		}
 		writer.newLine();
 		writer.write(TEXT_NEXT_WEEK_SCHEDULE);
 		writer.newLine();
