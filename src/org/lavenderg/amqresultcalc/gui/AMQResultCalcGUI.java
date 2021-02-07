@@ -67,8 +67,8 @@ public class AMQResultCalcGUI extends JFrame {
 	final TextPaneLogger paneLogger;
 	final BBCodeWriter bbcode = new BBCodeWriter();
 	
-	List<Result> resultadosCargados = null;
-	List<Round> rondasCargadas = null;
+	private List<Result> resultadosCargados = null;
+	private List<Round> rondasCargadas = null;
 	private String fechaPost = null;
 
 	private JScrollPane scrollPaneLog;
