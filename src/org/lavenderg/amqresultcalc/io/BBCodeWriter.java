@@ -83,11 +83,12 @@ public class BBCodeWriter {
 	 * @param outFile Archivo de salida, como {@link File}.
 	 * @param warn 
 	 * @param log 
+	 * @param fechaPost Fecha que se mostrará en el post. Con null, muestra una plantilla de fecha.
 	 * @throws IOException
 	 */
-	public void logRounds(List<Round> rounds, List<Result> previousResults, File outFile, boolean logSchedule, boolean warnPairs) throws IOException {
+	public void logRounds(List<Round> rounds, List<Result> previousResults, File outFile, boolean logSchedule, boolean warnPairs, String fechaPost) throws IOException {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(outFile))) {
-			logNumberOfPlayers(rounds, writer);
+			logNumberOfPlayers(rounds, writer, fechaPost);
 			logRoundsWithPoints(rounds, writer);
 			logWeeklyResultsHeader(rounds, writer);
 			List<Result> weekResults = ResultUtil.calculateResultsTable(rounds, new ArrayList<Result>());
@@ -105,7 +106,7 @@ public class BBCodeWriter {
 		
 	}
 
-	private void logNumberOfPlayers(List<Round> rounds, BufferedWriter writer) throws IOException {
+	private void logNumberOfPlayers(List<Round> rounds, BufferedWriter writer, String fechaPost) throws IOException {
 		Set<String> players = new HashSet<String>();
 		for (Round round : rounds) {
 			for (Result result : round.calculateRoundResults()) {
@@ -124,8 +125,8 @@ public class BBCodeWriter {
 			playersString.append(player);
 		}
 		
-		// TODO: añadir opción de escribir fecha
-		writer.write(String.format(TEXT_PLAYERS_AND_DATE, "<FECHA>", playersString.toString()));
+		String fecha = fechaPost == null ? "<FECHA>" : fechaPost;
+		writer.write(String.format(TEXT_PLAYERS_AND_DATE, fecha, playersString.toString()));
 		writer.newLine();
 		writer.newLine();
 		writer.write(TEXT_RESULTS_WERE);

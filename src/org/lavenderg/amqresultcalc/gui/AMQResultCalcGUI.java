@@ -69,6 +69,8 @@ public class AMQResultCalcGUI extends JFrame {
 	
 	List<Result> resultadosCargados = null;
 	List<Round> rondasCargadas = null;
+	private String fechaPost = null;
+
 	private JScrollPane scrollPaneLog;
 	private JTextPane textPaneLog;
 	private JScrollPane scrollPaneRounds;
@@ -80,6 +82,7 @@ public class AMQResultCalcGUI extends JFrame {
 	private JMenu menuOpciones;
 	private JCheckBoxMenuItem chckbxmntmHorarioPost;
 	private JCheckBoxMenuItem chckbxmntmParejas;
+	private JMenuItem mntmEstablecerFecha;
 
 	
 	public static void main(String[] args) {
@@ -284,7 +287,7 @@ public class AMQResultCalcGUI extends JFrame {
 				File resultados = new File("resultados_out.amq");
 				paneLogger.logInfo("Generando resultados...");
 				bbcode.logRounds(rondasCargadas, resultadosCargados, postBBC, getChckbxmntmHorarioPost().getState(),
-						getChckbxmntmParejas().getState());
+						getChckbxmntmParejas().getState(), fechaPost);
 				paneLogger.logSuccess("Resultados generados correctamente.");
 				paneLogger.logSuccess(String.format("Post guardado en el archivo %s", postBBC.getAbsolutePath()));
 				resultWriter.logResults(ResultUtil.calculateResultsTable(rondasCargadas, resultadosCargados), resultados);
@@ -301,6 +304,21 @@ public class AMQResultCalcGUI extends JFrame {
 			JOptionPane.showMessageDialog(AMQResultCalcGUI.this, String.format("Calculadora simple para resultados de AMQ.\nLicencia GPL-3.0.\nVersión %s\nMás información en https://github.com/LavenderG/AMQResultCalc", AMQRC_VERSION), "Sobre AMQResultCalc", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
+
+	class MntmEstablecerFechaActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			String fechaIntroducida = JOptionPane.showInputDialog(AMQResultCalcGUI.this, "Introduce la fecha a mostrar en el post de resultados:", "Introducir fecha de los resultados", JOptionPane.QUESTION_MESSAGE);
+			if (fechaIntroducida != null && !fechaIntroducida.isBlank()) {
+				try {
+					fechaPost = fechaIntroducida;
+					paneLogger.logInfo(String.format("Fecha introducida: \"%s\"", fechaIntroducida));
+				} catch (BadLocationException e) {
+					JOptionPane.showMessageDialog(AMQResultCalcGUI.this, "Un error ha ocurrido al escribir en el log.", "Error al escribir en el log", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
+	}
+
 	private JScrollPane getScrollPaneLog() {
 		if (scrollPaneLog == null) {
 			scrollPaneLog = new JScrollPane();
@@ -369,6 +387,7 @@ public class AMQResultCalcGUI extends JFrame {
 			menuOpciones.setMnemonic('O');
 			menuOpciones.add(getChckbxmntmHorarioPost());
 			menuOpciones.add(getChckbxmntmParejas());
+			menuOpciones.add(getMntmEstablecerFecha());
 		}
 		return menuOpciones;
 	}
@@ -385,5 +404,14 @@ public class AMQResultCalcGUI extends JFrame {
 			chckbxmntmParejas.setMnemonic('p');
 		}
 		return chckbxmntmParejas;
+	}
+	private JMenuItem getMntmEstablecerFecha() {
+		if (mntmEstablecerFecha == null) {
+			mntmEstablecerFecha = new JMenuItem("Establecer fecha...");
+			mntmEstablecerFecha.addActionListener(new MntmEstablecerFechaActionListener());
+			mntmEstablecerFecha.setMnemonic('f');
+			mntmEstablecerFecha.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
+		}
+		return mntmEstablecerFecha;
 	}
 }
