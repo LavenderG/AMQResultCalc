@@ -81,9 +81,9 @@ public class BBCodeWriter {
 	 * @param rounds Lista de rondas que serán procesadas en BBCode, como {@link List} de {@link Round}.
 	 * @param previousResults Resultados previos para realizar la adición de puntos, como {@link List} de {@link Result}.
 	 * @param outFile Archivo de salida, como {@link File}.
-	 * @param warn 
-	 * @param log 
 	 * @param fechaPost Fecha que se mostrará en el post. Con null, muestra una plantilla de fecha.
+	 * @param logSchedule Boolean que indica si se mostrarán los horarios de países en el post.
+	 * @param warnPairs Boolean que indica si se mostrará el aviso de parejas en el post.
 	 * @throws IOException
 	 */
 	public void logRounds(List<Round> rounds, List<Result> previousResults, File outFile, boolean logSchedule, boolean warnPairs, String fechaPost) throws IOException {
