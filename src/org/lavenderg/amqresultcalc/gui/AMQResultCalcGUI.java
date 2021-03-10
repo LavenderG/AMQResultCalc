@@ -83,6 +83,8 @@ public class AMQResultCalcGUI extends JFrame {
 	private JCheckBoxMenuItem chckbxmntmHorarioPost;
 	private JCheckBoxMenuItem chckbxmntmParejas;
 	private JMenuItem mntmEstablecerFecha;
+	private JMenu mnHerramientas;
+	private JMenuItem mntmCalculoDeParejas;
 
 	
 	public static void main(String[] args) {
@@ -149,6 +151,7 @@ public class AMQResultCalcGUI extends JFrame {
 			menuBar = new JMenuBar();
 			menuBar.add(getMenuFile());
 			menuBar.add(getMnCalcular());
+			menuBar.add(getMnHerramientas());
 			menuBar.add(getMenuOpciones());
 			menuBar.add(getMnAyuda());
 		}
@@ -318,6 +321,11 @@ public class AMQResultCalcGUI extends JFrame {
 			}
 		}
 	}
+	private class MntmCalculoDeParejasActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			new MatchCalcGUI().setVisible(true);
+		}
+	}
 
 	private JScrollPane getScrollPaneLog() {
 		if (scrollPaneLog == null) {
@@ -413,5 +421,22 @@ public class AMQResultCalcGUI extends JFrame {
 			mntmEstablecerFecha.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_DOWN_MASK));
 		}
 		return mntmEstablecerFecha;
+	}
+	private JMenu getMnHerramientas() {
+		if (mnHerramientas == null) {
+			mnHerramientas = new JMenu("Herramientas");
+			mnHerramientas.setMnemonic('H');
+			mnHerramientas.add(getMntmCalculoDeParejas());
+		}
+		return mnHerramientas;
+	}
+	private JMenuItem getMntmCalculoDeParejas() {
+		if (mntmCalculoDeParejas == null) {
+			mntmCalculoDeParejas = new JMenuItem("Cálculo de parejas...");
+			mntmCalculoDeParejas.addActionListener(new MntmCalculoDeParejasActionListener());
+			mntmCalculoDeParejas.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_J, InputEvent.CTRL_DOWN_MASK));
+			mntmCalculoDeParejas.setMnemonic('C');
+		}
+		return mntmCalculoDeParejas;
 	}
 }
