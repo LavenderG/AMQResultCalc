@@ -321,9 +321,11 @@ public class AMQResultCalcGUI extends JFrame {
 			}
 		}
 	}
-	private class MntmCalculoDeParejasActionListener implements ActionListener {
+	class MntmCalculoDeParejasActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
-			new MatchCalcGUI().setVisible(true);
+			JFrame matchCalcGUI = new MatchCalcGUI(resultadosCargados);
+			matchCalcGUI.setLocationRelativeTo(null);
+			matchCalcGUI.setVisible(true);
 		}
 	}
 
