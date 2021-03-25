@@ -28,6 +28,8 @@ import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.JSpinner;
 import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -69,6 +71,7 @@ public class MatchCalcGUI extends JFrame {
 	private JMenuItem mntmCerrar;
 
 	public MatchCalcGUI(List<Result> resultadosCargados) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/music.png"));
 		setType(Type.UTILITY);
 		setTitle("Calculadora de parejas");
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

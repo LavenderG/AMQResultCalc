@@ -38,6 +38,7 @@ import javax.swing.KeyStroke;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
 import javax.swing.JCheckBoxMenuItem;
+import java.awt.Toolkit;
 
 /**
  * Clase que forma la interfaz gráfica de la aplicación.
@@ -104,6 +105,7 @@ public class AMQResultCalcGUI extends JFrame {
 	 * Create the frame.
 	 */
 	public AMQResultCalcGUI() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("img/music.png"));
 		setTitle("AMQ Result Calc");
 		setAutoRequestFocus(false);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
