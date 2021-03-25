@@ -48,7 +48,7 @@ import java.awt.Toolkit;
 public class AMQResultCalcGUI extends JFrame {
 
 	private static final long serialVersionUID = -1283616002326547034L;
-	private static final String AMQRC_VERSION = "0.7";
+	private static final String AMQRC_VERSION = "0.8.0";
 	
 	private JPanel contentPane;
 	private JSplitPane splitPaneMainLog;
